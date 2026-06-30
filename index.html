@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halyna Panakhyd — UI/UX Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --white: #FFFFFF;
+      --bg: #FAFDF8;
+      --forest: #2D5016;
+      --forest-mid: #4A7A2E;
+      --sage: #7A9B6D;
+      --sage-light: #E8F0E4;
+      --neon: #8BC34A;
+      --neon-bright: #A4D65E;
+      --earth: #8B7355;
+      --charcoal: #2C2C2C;
+      --muted: #6B6B6B;
+      --border: #E2E8DE;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--charcoal);
+      background-color: var(--white);
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--forest);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--forest); }
+
+    /* Language switcher */
+    .lang-switch {
+      display: flex;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .lang-switch a {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--muted);
+      transition: all 0.3s ease;
+    }
+
+    .lang-switch a.active {
+      background: var(--forest);
+      color: var(--white);
+    }
+
+    .lang-switch a:not(.active):hover {
+      background: var(--sage-light);
+      color: var(--forest);
+    }
+
+    /* ── NEON LINE ── */
+    .neon-line {
+      position: relative;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon), var(--neon-bright), var(--neon), transparent);
+      margin: 0.75rem 0;
+      max-width: 260px;
+      box-shadow: 0 0 8px rgba(138, 195, 74, 0.5), 0 0 20px rgba(138, 195, 74, 0.2);
+    }
+
+    .neon-line .dot {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: var(--neon);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--neon), 0 0 16px rgba(138, 195, 74, 0.4);
+    }
+
+    .neon-line .dot:nth-child(1) { left: 30%; }
+    .neon-line .dot:nth-child(2) { right: 5%; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 2px solid var(--sage);
+      border-radius: 24px;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .hero-neon-diagonal {
+      position: absolute;
+      top: 80px;
+      right: 60px;
+      width: 180px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon), transparent);
+      transform: rotate(-35deg);
+      box-shadow: 0 0 10px rgba(138, 195, 74, 0.4), 0 0 25px rgba(138, 195, 74, 0.15);
+      opacity: 0.6;
+    }
+
+    .hero-neon-diagonal .dot {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--neon);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--neon), 0 0 14px rgba(138, 195, 74, 0.4);
+    }
+
+    .hero-neon-diagonal .dot:nth-child(1) { left: 20%; }
+    .hero-neon-diagonal .dot:nth-child(2) { right: 10%; }
+
+    .corner-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--neon);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--neon), 0 0 16px rgba(138, 195, 74, 0.3);
+    }
+
+    .corner-dot.tl { top: 50px; left: 50px; }
+    .corner-dot.br { bottom: 200px; right: 80px; }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-content { position: relative; }
+
+    .hero-eyebrow {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.25rem;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4.25rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--forest);
+      letter-spacing: -0.03em;
+      max-width: 600px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--sage);
+      display: block;
+    }
+
+    .hero-desc {
+      margin-top: 1.75rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: inline-flex;
+      gap: 1rem;
+      position: relative;
+      z-index: 3;
+    }
+
+    /* ── GLASS BUTTONS ── */
+    .btn-glass {
+      display: inline-block;
+      padding: 0.875rem 2rem;
+      border-radius: 24px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-glass-primary {
+      background: linear-gradient(135deg, rgba(45, 80, 22, 0.85), rgba(74, 122, 46, 0.85));
+      color: var(--white);
+      border: 1px solid rgba(138, 195, 74, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(45, 80, 22, 0.2),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-glass-primary:hover {
+      background: linear-gradient(135deg, rgba(45, 80, 22, 0.95), rgba(74, 122, 46, 0.95));
+      box-shadow: 0 8px 32px rgba(45, 80, 22, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  0 0 20px rgba(138, 195, 74, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .btn-glass-secondary {
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--forest);
+      border: 1px solid rgba(122, 155, 109, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .btn-glass-secondary:hover {
+      background: rgba(232, 240, 228, 0.6);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px);
+    }
+
+    /* ── HERO VISUAL — PHOTO + DIAMONDS ── */
+    .hero-visual {
+      position: relative;
+      height: 520px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .diamond {
+      position: absolute;
+      border-radius: 24px;
+      overflow: hidden;
+      transform: rotate(45deg);
+    }
+
+    .diamond-photo {
+      width: 260px;
+      height: 260px;
+      bottom: 80px;
+      left: calc(50% - 130px);
+      z-index: 5;
+      border: 3px solid var(--forest);
+      box-shadow: 0 20px 60px rgba(45, 80, 22, 0.2);
+    }
+
+    .diamond-photo img {
+      width: 142%;
+      height: 142%;
+      object-fit: cover;
+      transform: rotate(-45deg);
+      position: absolute;
+      top: -21%;
+      left: -21%;
+    }
+
+    .diamond-glass {
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .diamond-plant {
+      overflow: hidden;
+      border: 2px solid rgba(122, 155, 109, 0.4);
+    }
+
+    .diamond-plant img {
+      width: 180%;
+      height: 180%;
+      object-fit: cover;
+      transform: rotate(-45deg);
+      position: absolute;
+      top: -40%;
+      left: -40%;
+      opacity: 0.7;
+    }
+
+    .diamond-gradient {
+      background: linear-gradient(135deg, var(--sage-light), rgba(138, 195, 74, 0.15));
+      border: 1px solid rgba(138, 195, 74, 0.25);
+    }
+
+    .diamond-forest {
+      background: linear-gradient(135deg, rgba(45, 80, 22, 0.7), rgba(74, 122, 46, 0.5));
+      border: 1px solid rgba(45, 80, 22, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .d1 { width: 120px; height: 120px; bottom: 20px; left: -10px; z-index: 2; }
+    .d2 { width: 80px; height: 80px; bottom: 0; left: 100px; z-index: 3; }
+    .d3 { width: 100px; height: 100px; bottom: 30px; right: 120px; z-index: 2; }
+    .d4 { width: 140px; height: 140px; bottom: -20px; right: -10px; z-index: 3; }
+    .d5 { width: 70px; height: 70px; bottom: 140px; left: 60px; z-index: 1; }
+    .d6 { width: 90px; height: 90px; bottom: 120px; right: 40px; z-index: 1; }
+    .d7 { width: 60px; height: 60px; top: 100px; right: 80px; z-index: 1; }
+
+    .hero-visual-line {
+      position: absolute;
+      bottom: 160px;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon) 20%, var(--neon-bright) 50%, var(--neon) 80%, transparent);
+      box-shadow: 0 0 10px rgba(138, 195, 74, 0.4), 0 0 30px rgba(138, 195, 74, 0.15);
+      z-index: 4;
+    }
+
+    .hero-visual-line .dot {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: var(--neon-bright);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--neon), 0 0 20px rgba(138, 195, 74, 0.5);
+    }
+
+    .hero-visual-line .dot:nth-child(1) { left: 25%; }
+    .hero-visual-line .dot:nth-child(2) { right: 20%; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 7rem 2rem; }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.25rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      color: var(--forest);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-neon-line {
+      height: 2px;
+      max-width: 160px;
+      background: linear-gradient(90deg, var(--neon), var(--neon-bright), transparent);
+      box-shadow: 0 0 8px rgba(138, 195, 74, 0.4);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .section-neon-line .dot {
+      position: absolute;
+      top: 50%;
+      right: 30%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--neon);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--neon);
+    }
+
+    /* ── PROJECTS ── */
+    .projects {
+      background: var(--bg);
+      position: relative;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(45, 80, 22, 0.1);
+    }
+
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--sage-light);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .project-card:hover .project-thumb img {
+      transform: scale(1.03);
+    }
+
+    .project-info { padding: 1.75rem; }
+
+    .project-tag {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.625rem;
+    }
+
+    .project-info h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.375rem;
+      color: var(--forest);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-info p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── ABOUT ── */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill-tag {
+      padding: 0.5rem 1.125rem;
+      background: rgba(232, 240, 228, 0.6);
+      border: 1px solid rgba(122, 155, 109, 0.2);
+      color: var(--forest);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border-radius: 24px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .about-details { padding-top: 0.25rem; }
+
+    .detail-item {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-item:first-child { padding-top: 0; }
+
+    .detail-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.375rem;
+    }
+
+    .detail-value {
+      font-size: 1rem;
+      color: var(--charcoal);
+    }
+
+    .detail-value a {
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1px solid var(--sage-light);
+      transition: border-color 0.3s ease;
+    }
+
+    .detail-value a:hover { border-color: var(--forest); }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-diamond {
+      position: absolute;
+      border-radius: 24px;
+      transform: rotate(45deg);
+      opacity: 0.4;
+    }
+
+    .cd1 {
+      width: 100px; height: 100px;
+      bottom: -30px; left: 60px;
+      background: linear-gradient(135deg, var(--sage-light), rgba(138, 195, 74, 0.1));
+      border: 1px solid rgba(138, 195, 74, 0.2);
+    }
+
+    .cd2 {
+      width: 70px; height: 70px;
+      top: 40px; right: 80px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(122, 155, 109, 0.3);
+      backdrop-filter: blur(8px);
+    }
+
+    .contact .section-title {
+      max-width: 500px;
+      margin: 0 auto 1rem;
+    }
+
+    .contact-desc {
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .contact-email {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 2px solid var(--sage-light);
+      padding-bottom: 4px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact-email:hover { border-color: var(--forest); }
+
+    .social-links {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 1.25rem;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(6px);
+    }
+
+    .social-links a:hover {
+      color: var(--forest);
+      border-color: var(--sage);
+      background: rgba(232, 240, 228, 0.4);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-visual {
+        height: 360px;
+        order: -1;
+      }
+
+      .diamond-photo {
+        width: 200px;
+        height: 200px;
+        left: calc(50% - 100px);
+      }
+
+      .d1 { width: 90px; height: 90px; }
+      .d3 { width: 80px; height: 80px; }
+      .d4 { width: 100px; height: 100px; }
+      .d5, .d6, .d7 { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { gap: 1.25rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 0 1.5rem; }
+
+      .hero::before {
+        top: 10px; left: 10px; right: 10px; bottom: 10px;
+      }
+
+      .hero-cta { flex-direction: column; }
+      .hero-neon-diagonal { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.8125rem; }
+      .nav-right { gap: 1rem; }
+
+      .hero-visual { height: 300px; }
+
+      .diamond-photo {
+        width: 160px;
+        height: 160px;
+        left: calc(50% - 80px);
+      }
+    }
+
+    /* ── ANIMATIONS ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes glowPulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+      }
+
+      .neon-line .dot,
+      .hero-visual-line .dot,
+      .hero-neon-diagonal .dot,
+      .corner-dot {
+        animation: glowPulse 3s ease-in-out infinite;
+      }
+
+      .hero-neon-diagonal .dot:nth-child(2),
+      .corner-dot.br {
+        animation-delay: 1.5s;
+      }
+
+      @keyframes floatDiamond {
+        0%, 100% { transform: rotate(45deg) translateY(0); }
+        50% { transform: rotate(45deg) translateY(-8px); }
+      }
+
+      .d5, .d7 {
+        animation: floatDiamond 6s ease-in-out infinite;
+      }
+
+      .d7 { animation-delay: 2s; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Halyna Panakhyd</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#projects">Проєкти</a></li>
+          <li><a href="#about">Про мене</a></li>
+          <li><a href="#contact">Контакт</a></li>
+        </ul>
+        <div class="lang-switch">
+          <a href="index.html" class="active">UA</a>
+          <a href="en.html">EN</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-neon-diagonal">
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+    <span class="corner-dot tl"></span>
+    <span class="corner-dot br"></span>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="hero-eyebrow">UI/UX Designer</p>
+        <div class="neon-line">
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <h1>Створюю інтерфейси,<em>в яких хочеться залишитися</em></h1>
+        <p class="hero-desc">Продумані рішення, чиста естетика та увага до кожної деталі. Допомагаю брендам говорити з користувачами зрозумілою візуальною мовою.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-glass btn-glass-primary">Переглянути роботи</a>
+          <a href="#contact" class="btn-glass btn-glass-secondary">Зв'язатися</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-line">
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+
+        <div class="diamond diamond-photo">
+          <img src="my_photo.jpg" alt="Halyna Panakhyd">
+        </div>
+
+        <div class="diamond diamond-plant d1">
+          <img src="https://images.unsplash.com/photo-1501004318855-e73f8fd5c0a4?w=300&h=300&fit=crop" alt="">
+        </div>
+        <div class="diamond diamond-glass d2"></div>
+        <div class="diamond diamond-gradient d3"></div>
+        <div class="diamond diamond-plant d4">
+          <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=300&h=300&fit=crop" alt="">
+        </div>
+        <div class="diamond diamond-glass d5"></div>
+        <div class="diamond diamond-forest d6"></div>
+        <div class="diamond diamond-gradient d7"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="section-inner">
+      <p class="section-label">Портфоліо</p>
+      <h2 class="section-title">Вибрані проєкти</h2>
+      <div class="section-neon-line"><span class="dot"></span></div>
+
+      <div class="projects-grid">
+        <a href="https://www.behance.net/gallery/247488527/MobileA-App-Agro-Plant" target="_blank" class="project-card fade-in">
+          <div class="project-thumb">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/de97d3247488527.Y3JvcCwzODM1LDMwMDAsMCww.jpg" alt="Mobile App Agro Plant">
+          </div>
+          <div class="project-info">
+            <p class="project-tag">Mobile App · Branding</p>
+            <h3>Agro Plant</h3>
+            <p>Мобільний додаток для агро-сектору з повним брендингом — від логотипу до UI-системи.</p>
+          </div>
+        </a>
+
+        <a href="https://www.behance.net/gallery/242419049/Learning-Web-App" target="_blank" class="project-card fade-in">
+          <div class="project-thumb">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/2f6159242419049.Y3JvcCwzODM1LDMwMDAsMCww.jpg" alt="Learning Web App">
+          </div>
+          <div class="project-info">
+            <p class="project-tag">Web App · UI/UX</p>
+            <h3>Learning Web App</h3>
+            <p>Веб-платформа для навчання з інтуїтивним інтерфейсом та продуманою навігацією.</p>
+          </div>
+        </a>
+
+        <a href="https://www.behance.net/gallery/238606033/Landing-Page-Plant-Care-Services" target="_blank" class="project-card fade-in">
+          <div class="project-thumb">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b6e486238606033.Y3JvcCwzODM1LDMwMDAsMCww.jpg" alt="Landing Page Plant Care Services">
+          </div>
+          <div class="project-info">
+            <p class="project-tag">Landing Page · Web Design</p>
+            <h3>Plant Care Services</h3>
+            <p>Лендинг для сервісу догляду за рослинами — природна естетика і конверсійна структура.</p>
+          </div>
+        </a>
+
+        <a href="https://www.behance.net/gallery/238383577/Redesign-Landing-Page-Amusement-Park" target="_blank" class="project-card fade-in">
+          <div class="project-thumb">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/3d673c238383577.Y3JvcCwzODM1LDMwMDAsMCww.jpg" alt="Redesign Landing Page Amusement Park">
+          </div>
+          <div class="project-info">
+            <p class="project-tag">Redesign · Landing Page</p>
+            <h3>Amusement Park</h3>
+            <p>Редизайн лендингу парку розваг — свіжий погляд на подачу емоцій та атмосфери.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="section-inner">
+      <p class="section-label">Про мене</p>
+      <h2 class="section-title">Halyna Panakhyd</h2>
+      <div class="section-neon-line"><span class="dot"></span></div>
+
+      <div class="about-content">
+        <div class="about-text fade-in">
+          <p>UI/UX дизайнерка з України. Створюю інтерфейси для веб- та мобільних продуктів, поєднуючи чисту естетику з продуманою функціональністю.</p>
+          <p>У кожному проєкті шукаю баланс між візуальною виразністю та зручністю для користувача. Працюю у Figma, Adobe Photoshop та Illustrator.</p>
+          <div class="skills-list">
+            <span class="skill-tag">UI/UX Design</span>
+            <span class="skill-tag">Web Design</span>
+            <span class="skill-tag">Mobile Design</span>
+            <span class="skill-tag">Branding</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Photoshop</span>
+            <span class="skill-tag">Illustrator</span>
+          </div>
+        </div>
+
+        <div class="about-details fade-in">
+          <div class="detail-item">
+            <p class="detail-label">Локація</p>
+            <p class="detail-value">Україна</p>
+          </div>
+          <div class="detail-item">
+            <p class="detail-label">Статус</p>
+            <p class="detail-value">Відкрита до фріланс-проєктів</p>
+          </div>
+          <div class="detail-item">
+            <p class="detail-label">Behance</p>
+            <p class="detail-value"><a href="https://www.behance.net/halynapanakhyd" target="_blank">behance.net/halynapanakhyd</a></p>
+          </div>
+          <div class="detail-item">
+            <p class="detail-label">LinkedIn</p>
+            <p class="detail-value"><a href="https://www.linkedin.com/in/halynapanakhyd/" target="_blank">linkedin.com/in/halynapanakhyd</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-diamond cd1"></div>
+    <div class="contact-diamond cd2"></div>
+    <div class="section-inner" style="position: relative; z-index: 2;">
+      <p class="section-label">Контакт</p>
+      <h2 class="section-title">Маєте проєкт? Напишіть мені</h2>
+      <div class="section-neon-line" style="margin: 0 auto 2rem;"><span class="dot"></span></div>
+      <p class="contact-desc">Завжди відкрита до цікавих проєктів та співпраці. Давайте створимо щось гарне разом.</p>
+      <a href="mailto:halyarem@gmail.com" class="contact-email">halyarem@gmail.com</a>
+      <div class="social-links">
+        <a href="https://www.behance.net/halynapanakhyd" target="_blank">Behance</a>
+        <a href="https://www.linkedin.com/in/halynapanakhyd/" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Halyna Panakhyd</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    });
+  </script>
+
+</body>
+</html>
